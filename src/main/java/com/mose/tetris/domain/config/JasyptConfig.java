@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application-privacy.yml")
+@PropertySource("classpath:application-privacy.properties")
 public class JasyptConfig {
-    @Value("${password}")
+    @Value("${db.encrypt.key}")
     private String salt;
 
     @Bean("jasyptStringEncryptor")

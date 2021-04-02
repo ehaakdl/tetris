@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### additional ###
-src/main/resources/application-privacy.yml
+src/main/resources/application-privacy*
