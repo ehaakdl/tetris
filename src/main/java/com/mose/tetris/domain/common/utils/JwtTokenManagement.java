@@ -16,21 +16,16 @@ import java.util.Map;
 
 
 
-@Configuration
+@Component
 @PropertySource("classpath:application-privacy.properties")
 public class JwtTokenManagement {
     @Value("${jwt.encrypt.key}")
     private String SECRETKEY;
 
-    private final Key KEY;
-
-    public init() {
+    public String create(Date expireDate, Map<String, Object> header, Map<String, Object> claims) {
         byte[] secretKeyBytes = SECRETKEY.getBytes(StandardCharsets.UTF_8);
         String jcaName = SignatureAlgorithm.HS256.getJcaName();
-        KEY = new SecretKeySpec(secretKeyBytes, jcaName);
-    }
-
-    public String create(Date expireDate, Map<String, Object> header, Map<String, Object> claims) {
+        Key KEY = new SecretKeySpec(secretKeyBytes, jcaName);
         if(expireDate == null || header == null || claims == null){
             return null;
         }
@@ -56,18 +51,12 @@ public class JwtTokenManagement {
         return bResult;
     }
 
-    public Map<String, Object> getClaims(String token) {
+    public Map<String, Object> getClaims(String token) throws Exception {
         Claims claims = null;
-        try {
-            claims = Jwts.parser()
-                    .setSigningKey(SECRETKEY.getBytes())
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (ExpiredJwtException except) {
-            return null;
-        } catch (Exception except) {
-            return null;
-        }
+        claims = Jwts.parser()
+                .setSigningKey(SECRETKEY.getBytes())
+                .parseClaimsJws(token)
+                .getBody();
         return claims;
     }
 
