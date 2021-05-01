@@ -4,13 +4,18 @@ spring:
       - db
       - privacy
     active: debug
-
+  h2:
+    console:
+      enabled: false
   datasource:
-    url: jdbc:mysql://115.85.183.222:3306/tetris_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: tetris
-    password: ENC(RfA5RnAAQCL2A72px0dR0g==)
-
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    #url: jdbc:mysql://115.85.183.222:3306/tetris_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #username: tetris
+    #password: ENC(RfA5RnAAQCL2A72px0dR0g==)
   devtools:
     livereload:
       enabled: true
